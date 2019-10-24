@@ -1,8 +1,8 @@
-package com.saiferwp.imgurgallery.data.api
+package com.saiferwp.imgurgallery.api
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.saiferwp.imgurgallery.Config
-import com.saiferwp.imgurgallery.data.api.interceptor.ApiKeyInterceptor
+import com.saiferwp.imgurgallery.api.interceptor.ApiKeyInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -1,4 +1,4 @@
-package com.saiferwp.imgurgallery.data.api.model
+package com.saiferwp.imgurgallery.api.model
 
 data class GalleryItem(
     val id: String,

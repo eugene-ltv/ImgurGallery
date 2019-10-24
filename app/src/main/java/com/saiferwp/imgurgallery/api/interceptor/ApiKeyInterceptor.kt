@@ -1,4 +1,4 @@
-package com.saiferwp.imgurgallery.data.api.interceptor
+package com.saiferwp.imgurgallery.api.interceptor
 
 import com.saiferwp.imgurgallery.BuildConfig
 import okhttp3.Interceptor

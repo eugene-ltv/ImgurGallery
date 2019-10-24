@@ -1,8 +1,8 @@
 package com.saiferwp.imgurgallery.data
 
-import com.saiferwp.imgurgallery.data.api.ApiClient
-import com.saiferwp.imgurgallery.data.api.request.GalleryRequest
-import com.saiferwp.imgurgallery.data.api.response.GalleryResponse
+import com.saiferwp.imgurgallery.api.ApiClient
+import com.saiferwp.imgurgallery.api.request.GalleryRequest
+import com.saiferwp.imgurgallery.api.response.GalleryResponse
 import java.net.UnknownHostException
 
 class GalleryProvider(

@@ -1,7 +1,7 @@
 package com.saiferwp.imgurgallery.di
 
-import com.saiferwp.imgurgallery.data.api.ApiClient
-import com.saiferwp.imgurgallery.data.api.ApiFactory
+import com.saiferwp.imgurgallery.api.ApiClient
+import com.saiferwp.imgurgallery.api.ApiFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

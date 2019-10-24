@@ -1,4 +1,4 @@
-package com.saiferwp.imgurgallery.data.api.response
+package com.saiferwp.imgurgallery.api.response
 
 import com.google.gson.annotations.SerializedName
 

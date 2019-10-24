@@ -1,6 +1,6 @@
-package com.saiferwp.imgurgallery.data.api
+package com.saiferwp.imgurgallery.api
 
-import com.saiferwp.imgurgallery.data.api.response.GalleryResponse
+import com.saiferwp.imgurgallery.api.response.GalleryResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
