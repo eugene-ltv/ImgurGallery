@@ -1,7 +1,8 @@
-package com.saiferwp.imgurgallery
+package com.saiferwp.imgurgallery.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.saiferwp.imgurgallery.R
 import com.saiferwp.imgurgallery.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
