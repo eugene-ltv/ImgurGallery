@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainFragment">
+    tools:context=".ui.main.GalleryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_repos_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="4dp"
+        android:padding="4dp"
         android:scrollbars="vertical"
         android:fadeScrollbars="false"
+        android:background="#2F3135"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

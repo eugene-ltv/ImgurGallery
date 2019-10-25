@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
+    android:layout_marginLeft="4dp"
     android:layout_marginTop="4dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="0dp"
-    app:cardBackgroundColor="#FFFFFF"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    app:cardBackgroundColor="#42464E"
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp">
 
@@ -20,33 +20,31 @@
         android:clickable="true"
         android:focusable="true">
 
-        <TextView
-            android:id="@+id/textView_gallery_item_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
+        <ImageView
+            android:id="@+id/textView_gallery_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView_gallery_item_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:lines="2"
+            android:background="#B342464E"
             android:maxLines="2"
+            android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#969696"
+            android:textColor="#E4E4E4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView_gallery_item_name"
-            app:layout_constraintTop_toBottomOf="@+id/textView_gallery_item_name"
-            tools:text="Name" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_gallery_item_image"
+            tools:text="Description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

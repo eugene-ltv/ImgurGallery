@@ -3,12 +3,16 @@ package com.saiferwp.imgurgallery.ui.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.saiferwp.imgurgallery.R
 import com.saiferwp.imgurgallery.api.model.GalleryItem
 
-class GalleryListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items = mutableListOf<GalleryItem>()
     private var isLoaderVisible = false
@@ -57,14 +61,53 @@ class GalleryListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class RepoDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val name: TextView = itemView.findViewById(R.id.textView_gallery_item_name)
         private val description: TextView = itemView.findViewById(R.id.textView_gallery_item_description)
+        private val image: ImageView = itemView.findViewById(R.id.textView_gallery_item_image)
 
         fun bind(
-            repoData: GalleryItem
+            galleryItem: GalleryItem
         ) {
-            name.text = repoData.id
-            description.text = repoData.title
+            description.text = galleryItem.title
+
+            Glide.with(itemView.context)
+                .clear(image)
+
+//            val layoutParams = image.layoutParams as ConstraintLayout.LayoutParams
+            if (galleryItem.images.isNullOrEmpty()) {
+//                layoutParams.dimensionRatio = "1:1"
+
+                if (!galleryItem.mp4.isNullOrEmpty()) {
+                    val imageRatio = galleryItem.height.toFloat() / galleryItem.width
+//                    layoutParams.dimensionRatio = "1:${imageRatio}"
+
+                    Glide.with(itemView.context)
+                        .asBitmap()
+                        .load(galleryItem.mp4)
+                        .apply(RequestOptions()
+                            .override(galleryItem.width, galleryItem.height)
+                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
+                        .into(image)
+                }
+
+            } else {
+                val galleryImage = galleryItem.images[0]
+//                val imageRatio = galleryImage.height.toFloat() / galleryImage.width
+//                layoutParams.dimensionRatio = "1:${if (imageRatio > 2) 2f else imageRatio}"
+
+                Glide.with(itemView.context)
+                    .also {
+                        if (galleryItem.type == "image/gif") {
+                            it.asGif()
+                        } else {
+                            it.asBitmap()
+                        }
+                    }
+                    .load(galleryImage.link)
+                    .apply(RequestOptions()
+                        .override(galleryImage.width, galleryImage.height)
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
+                    .into(image)
+            }
         }
     }
 
