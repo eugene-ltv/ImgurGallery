@@ -8,9 +8,9 @@ import javax.inject.Singleton
 @Component(
     modules = [
         ApiModule::class,
-        ReposModule::class
+        GalleryModule::class
     ]
 )
 interface AppComponent {
-    fun getReposProvider(): GalleryProvider
+    fun getGalleryProvider(): GalleryProvider
 }

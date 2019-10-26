@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/top"
+    app:startDestination="@id/gallery_list_fragment_top">
+
+    <fragment
+        android:id="@+id/gallery_list_fragment_top"
+        android:name="com.saiferwp.imgurgallery.ui.gallery.GalleryFragment"
+        android:label="Top"
+        tools:layout="@layout/gallery_fragment">
+
+        <argument
+            android:name="gallerySection"
+            app:argType="com.saiferwp.imgurgallery.data.model.GallerySection"
+            android:defaultValue="TOP"/>
+    </fragment>
+</navigation>

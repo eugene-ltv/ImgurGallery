@@ -10,7 +10,17 @@ import retrofit2.http.Query
 interface Api {
 
     @GET("gallery/hot/{page}")
-    fun getGalleryAsync(
+    fun getGalleryHotAsync(
+        @Path("page") currentPage: Int
+    ): Deferred<Response<GalleryResponse>>
+
+    @GET("gallery/top/{page}")
+    fun getGalleryTopAsync(
+        @Path("page") currentPage: Int
+    ): Deferred<Response<GalleryResponse>>
+
+    @GET("gallery/hot/{page}")
+    fun getGalleryUserSubmittedAsync(
         @Path("page") currentPage: Int,
         @Query("showViral") showViral: String = "true"
     ): Deferred<Response<GalleryResponse>>

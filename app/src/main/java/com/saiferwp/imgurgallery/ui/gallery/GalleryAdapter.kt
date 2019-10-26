@@ -1,4 +1,4 @@
-package com.saiferwp.imgurgallery.ui.main
+package com.saiferwp.imgurgallery.ui.gallery
 
 import android.view.LayoutInflater
 import android.view.View
@@ -85,7 +85,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .load(galleryItem.mp4)
                         .apply(RequestOptions()
                             .override(galleryItem.width, galleryItem.height)
-                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
+                            .diskCacheStrategy(DiskCacheStrategy.DATA))
                         .into(image)
                 }
 
@@ -106,6 +106,7 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     .apply(RequestOptions()
                         .override(galleryImage.width, galleryImage.height)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
+                        //.diskCacheStrategy(DiskCacheStrategy.DATA))
                     .into(image)
             }
         }

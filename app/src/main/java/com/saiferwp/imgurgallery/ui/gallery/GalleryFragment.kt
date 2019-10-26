@@ -1,4 +1,4 @@
-package com.saiferwp.imgurgallery.ui.main
+package com.saiferwp.imgurgallery.ui.gallery
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saiferwp.imgurgallery.R
+import com.saiferwp.imgurgallery.data.model.GallerySection
 import com.saiferwp.imgurgallery.misc.PaginationListener
 
 class GalleryFragment : Fragment() {
@@ -62,15 +63,12 @@ class GalleryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(GalleryViewModel::class.java)
 
+        viewModel.gallerySection = arguments?.getSerializable("gallerySection") as GallerySection
         viewModel.loadGallery()
             .observe(this, Observer { list ->
                 adapter.addData(list)
 
                 adapter.showLoading(!viewModel.isLastPage)
             })
-    }
-
-    companion object {
-        fun newInstance() = GalleryFragment()
     }
 }

@@ -1,25 +1,29 @@
-package com.saiferwp.imgurgallery.ui.main
+package com.saiferwp.imgurgallery.ui.gallery
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.saiferwp.imgurgallery.App
 import com.saiferwp.imgurgallery.api.model.GalleryItem
+import com.saiferwp.imgurgallery.data.model.GallerySection
 import kotlinx.coroutines.launch
 
 class GalleryViewModel : ViewModel() {
 
+    lateinit var gallerySection: GallerySection
     private val galleryLiveData = MutableLiveData<List<GalleryItem>>()
 
     private var currentPage = 0
     internal var isLastPage = false
     internal var isLoading = false
 
+    private val galleryProvider = App.component.getGalleryProvider()
+
     private fun doRequest() {
         isLoading = true
         viewModelScope.launch {
-            val provider = App.component.getReposProvider()
-            val reposList = provider.getGallery(currentPage)
+
+            val reposList = galleryProvider.getGallery(gallerySection, currentPage)
             if (reposList != null) {
                 if (reposList.data.isEmpty()) {
                     isLastPage = true

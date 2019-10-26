@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user"
+    app:startDestination="@id/gallery_list_fragment_user">
+
+    <fragment
+        android:id="@+id/gallery_list_fragment_user"
+        android:name="com.saiferwp.imgurgallery.ui.gallery.GalleryFragment"
+        android:label="User Submitted"
+        tools:layout="@layout/gallery_fragment">
+
+        <argument
+            android:name="gallerySection"
+            app:argType="com.saiferwp.imgurgallery.data.model.GallerySection"
+            android:defaultValue="USER_SUBMITTED"/>
+    </fragment>
+</navigation>

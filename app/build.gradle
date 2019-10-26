@@ -36,8 +36,15 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta05'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    implementation 'androidx.fragment:fragment-ktx:1.2.0-rc01'
 
-    //Retrofit
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment:2.1.0"
+    implementation "androidx.navigation:navigation-ui:2.1.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.1.0"
+
+    // Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.5.0"
     implementation "com.squareup.retrofit2:converter-gson:2.5.0"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
@@ -50,7 +57,7 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.24'
     kapt 'com.google.dagger:dagger-compiler:2.24'
 
-    //Glide
+    // Glide
     implementation "com.github.bumptech.glide:glide:4.8.0", {
         exclude group: 'com.android.support'
     }
