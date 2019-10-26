@@ -1,9 +1,7 @@
 package com.saiferwp.imgurgallery.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -13,11 +11,17 @@ import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.saiferwp.imgurgallery.R
 import com.saiferwp.imgurgallery.misc.setupWithNavController
+import com.saiferwp.imgurgallery.ui.about.AboutAppFragment
 
 
 class MainFragment : Fragment() {
 
     private var currentNavController: LiveData<NavController>? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +41,23 @@ class MainFragment : Fragment() {
         if (savedInstanceState != null) {
             setupBottomNavigationBar()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return (when (item.itemId) {
+            R.id.about -> {
+                AboutAppFragment().show(childFragmentManager, null)
+                true
+            }
+            else ->
+                super.onOptionsItemSelected(item)
+        })
     }
 
     private fun setupBottomNavigationBar() {
