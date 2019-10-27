@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -11,23 +12,25 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.saiferwp.imgurgallery.R
-import com.saiferwp.imgurgallery.api.model.GalleryItem
+import com.saiferwp.imgurgallery.data.model.GalleryImage
+import com.saiferwp.imgurgallery.misc.GlideSimpleRequestListener
 
 class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items = listOf<GalleryItem>()
+    private var items = listOf<GalleryImage>()
     private var isLoaderVisible = false
+    internal var dynamicImageSizeRatio = false
 
     fun getItemsSize() = items.size
 
     fun setData(
-        items: List<GalleryItem>
+        items: List<GalleryImage>
     ) {
         this.items = items
         notifyDataSetChanged()
     }
 
-    fun showLoading(show : Boolean) {
+    fun showLoading(show: Boolean) {
         isLoaderVisible = show
         notifyDataSetChanged()
     }
@@ -44,7 +47,8 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun getItemCount() = items.size + if (isLoaderVisible) 1 else 0
+    override fun getItemCount() = items.size +
+            if (isLoaderVisible && items.isNotEmpty()) 1 else 0
 
     override fun getItemViewType(position: Int): Int {
         return if (isLoaderVisible) {
@@ -56,64 +60,63 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (!isLoaderVisible || (isLoaderVisible && position < items.size)) {
-            (holder as RepoDataViewHolder).bind(items[position])
+            (holder as RepoDataViewHolder).bind(items[position], dynamicImageSizeRatio)
         }
-    }
-
-    fun clear() {
-        items = mutableListOf()
     }
 
     class RepoDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val description: TextView = itemView.findViewById(R.id.textView_gallery_item_description)
-        private val image: ImageView = itemView.findViewById(R.id.textView_gallery_item_image)
+        private val description: TextView = itemView.findViewById(R.id.gallery_item_description)
+        private val image: ImageView = itemView.findViewById(R.id.gallery_item_image)
+        private val progress: ProgressBar = itemView.findViewById(R.id.gallery_item_progress)
 
         fun bind(
-            galleryItem: GalleryItem
+            galleryImage: GalleryImage,
+            dynamicImageSizeRatio: Boolean
         ) {
-            description.text = galleryItem.title
-
-            Glide.with(itemView.context)
-                .clear(image)
+            description.text = galleryImage.title
 
             val layoutParams = image.layoutParams as ConstraintLayout.LayoutParams
-            if (galleryItem.images.isNullOrEmpty()) {
-                layoutParams.dimensionRatio = "1:1"
-
-                if (!galleryItem.mp4.isNullOrEmpty()) {
-                    val imageRatio = galleryItem.height.toFloat() / galleryItem.width
-                    layoutParams.dimensionRatio = "1:${imageRatio}"
-
-                    Glide.with(itemView.context)
-                        .asBitmap()
-                        .load(galleryItem.mp4)
-                        .apply(RequestOptions()
-                            .override(galleryItem.width, galleryItem.height)
-                            .diskCacheStrategy(DiskCacheStrategy.DATA))
-                        .into(image)
-                }
-
-            } else {
-                val galleryImage = galleryItem.images[0]
+            if (dynamicImageSizeRatio) {
                 val imageRatio = galleryImage.height.toFloat() / galleryImage.width
                 layoutParams.dimensionRatio = "1:${if (imageRatio > 2) 2f else imageRatio}"
+            } else {
+                layoutParams.dimensionRatio = "1:1"
+            }
 
-                Glide.with(itemView.context)
+            loadImage(galleryImage)
+        }
+
+        private fun loadImage(galleryImage: GalleryImage) {
+            Glide.with(itemView.context)
+                .clear(image)
+            progress.visibility = View.VISIBLE
+
+            Glide.with(itemView.context)
+                .also {
+                    if (galleryImage.type == GalleryImage.Type.GIF) {
+                        it.asGif()
+                    } else {
+                        it.asBitmap()
+                    }
+                }
+                .load(galleryImage.link)
+                .apply(RequestOptions()
+                    .override(galleryImage.width, galleryImage.height)
                     .also {
-                        if (galleryItem.type == "image/gif") {
-                            it.asGif()
+                        if (galleryImage.type == GalleryImage.Type.GIF ||
+                            galleryImage.type == GalleryImage.Type.MP4
+                        ) {
+                            it.diskCacheStrategy(DiskCacheStrategy.DATA)
                         } else {
-                            it.asBitmap()
+                            it.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         }
                     }
-                    .load(galleryImage.link)
-                    .apply(RequestOptions()
-                        .override(galleryImage.width, galleryImage.height)
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
-                        //.diskCacheStrategy(DiskCacheStrategy.DATA))
-                    .into(image)
-            }
+                )
+                .listener(GlideSimpleRequestListener {
+                    progress.visibility = View.GONE
+                })
+                .into(image)
         }
     }
 

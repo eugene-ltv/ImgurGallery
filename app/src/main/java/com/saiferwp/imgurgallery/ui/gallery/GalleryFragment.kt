@@ -2,6 +2,7 @@ package com.saiferwp.imgurgallery.ui.gallery
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +16,7 @@ import com.saiferwp.imgurgallery.misc.PaginationListener
 
 class GalleryFragment : Fragment() {
 
+    private lateinit var progress: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private val adapter: GalleryAdapter =
         GalleryAdapter()
@@ -36,6 +38,11 @@ class GalleryFragment : Fragment() {
                 adapter.showLoading(!viewModel.isLastPage)
             })
         viewModel.doRequest()
+
+        viewModel.initialLoadingLiveData
+            .observe(this, Observer { isLoading ->
+                progress.visibility = if (isLoading) View.VISIBLE else View.GONE
+            })
     }
 
     override fun onCreateView(
@@ -46,6 +53,7 @@ class GalleryFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        progress = view.findViewById(R.id.gallery_progress)
         recyclerView = view.findViewById(R.id.recyclerView_repos_list)
         recyclerView.adapter = adapter
         configureRecyclerView()
@@ -81,6 +89,10 @@ class GalleryFragment : Fragment() {
     }
 
     private fun configureRecyclerView() {
+        adapter.dynamicImageSizeRatio =
+            viewModel.getLayoutType() == LayoutType.STAGGERED_GRID ||
+                    viewModel.getLayoutType() == LayoutType.LINEAR
+
         val layoutManager: RecyclerView.LayoutManager =
             when (viewModel.getLayoutType()) {
                 LayoutType.GRID -> {

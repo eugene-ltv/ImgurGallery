@@ -4,14 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.saiferwp.imgurgallery.App
-import com.saiferwp.imgurgallery.api.model.GalleryItem
+import com.saiferwp.imgurgallery.data.model.GalleryImage
 import com.saiferwp.imgurgallery.data.model.GallerySection
 import kotlinx.coroutines.launch
 
 class GalleryViewModel : ViewModel() {
 
     lateinit var gallerySection: GallerySection
-    internal val galleryLiveData = MutableLiveData<List<GalleryItem>>(listOf())
+    internal val galleryLiveData = MutableLiveData<List<GalleryImage>>(listOf())
+    internal val initialLoadingLiveData = MutableLiveData<Boolean>(false)
 
     private var currentPage = 0
     internal var isLastPage = false
@@ -22,17 +23,24 @@ class GalleryViewModel : ViewModel() {
 
     internal fun doRequest() {
         isLoading = true
+        if (currentPage == 0) {
+            initialLoadingLiveData.value = true
+        }
         viewModelScope.launch {
 
             val reposList = galleryProvider.getGallery(gallerySection, currentPage)
             if (reposList != null) {
-                if (reposList.data.isEmpty()) {
+                if (reposList.isEmpty()) {
                     isLastPage = true
                 }
 
                 isLoading = false
+                if (currentPage == 0) {
+                    initialLoadingLiveData.value = false
+                }
+
                 galleryLiveData.value =
-                    galleryLiveData.value?.plus(reposList.data)
+                    galleryLiveData.value?.plus(reposList)
             }
         }
     }

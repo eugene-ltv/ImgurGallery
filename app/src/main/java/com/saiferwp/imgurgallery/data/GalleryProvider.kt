@@ -4,7 +4,8 @@ import com.saiferwp.imgurgallery.api.ApiClient
 import com.saiferwp.imgurgallery.api.request.GalleryHotRequest
 import com.saiferwp.imgurgallery.api.request.GalleryTopRequest
 import com.saiferwp.imgurgallery.api.request.GalleryUserSubmittedRequest
-import com.saiferwp.imgurgallery.api.response.GalleryResponse
+import com.saiferwp.imgurgallery.data.model.GalleryImage
+import com.saiferwp.imgurgallery.data.model.GalleryImageMapper
 import com.saiferwp.imgurgallery.data.model.GallerySection
 import java.net.UnknownHostException
 
@@ -15,7 +16,7 @@ class GalleryProvider(
     suspend fun getGallery(
         gallerySection: GallerySection,
         currentPage: Int
-    ): GalleryResponse? {
+    ): List<GalleryImage>? {
         try {
             val request = when (gallerySection) {
                 GallerySection.HOT -> GalleryHotRequest(currentPage)
@@ -28,7 +29,11 @@ class GalleryProvider(
             if (response.isSuccessful && response.body() != null) {
                 val body = response.body()
 
-                return body
+                return if (body != null && body.data.isNotEmpty()) {
+                    body.data.map { GalleryImageMapper.map(it) }
+                } else {
+                    emptyList()
+                }
             } else {
                 // Error, empty result
             }
