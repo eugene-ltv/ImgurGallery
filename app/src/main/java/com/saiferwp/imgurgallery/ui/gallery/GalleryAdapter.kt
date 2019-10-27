@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -72,13 +73,13 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             Glide.with(itemView.context)
                 .clear(image)
 
-//            val layoutParams = image.layoutParams as ConstraintLayout.LayoutParams
+            val layoutParams = image.layoutParams as ConstraintLayout.LayoutParams
             if (galleryItem.images.isNullOrEmpty()) {
-//                layoutParams.dimensionRatio = "1:1"
+                layoutParams.dimensionRatio = "1:1"
 
                 if (!galleryItem.mp4.isNullOrEmpty()) {
                     val imageRatio = galleryItem.height.toFloat() / galleryItem.width
-//                    layoutParams.dimensionRatio = "1:${imageRatio}"
+                    layoutParams.dimensionRatio = "1:${imageRatio}"
 
                     Glide.with(itemView.context)
                         .asBitmap()
@@ -91,8 +92,8 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             } else {
                 val galleryImage = galleryItem.images[0]
-//                val imageRatio = galleryImage.height.toFloat() / galleryImage.width
-//                layoutParams.dimensionRatio = "1:${if (imageRatio > 2) 2f else imageRatio}"
+                val imageRatio = galleryImage.height.toFloat() / galleryImage.width
+                layoutParams.dimensionRatio = "1:${if (imageRatio > 2) 2f else imageRatio}"
 
                 Glide.with(itemView.context)
                     .also {

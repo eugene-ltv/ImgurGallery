@@ -18,6 +18,7 @@ class GalleryViewModel : ViewModel() {
     internal var isLoading = false
 
     private val galleryProvider = App.component.getGalleryProvider()
+    private val preferencesManager = App.component.getPreferencesManager()
 
     private fun doRequest() {
         isLoading = true
@@ -44,4 +45,18 @@ class GalleryViewModel : ViewModel() {
         currentPage++
         doRequest()
     }
+
+    fun getLayoutType(): LayoutType {
+        return preferencesManager.getGalleryLayoutType()
+    }
+
+    fun setLayoutType(layoutType: LayoutType) {
+        preferencesManager.setGalleryLayoutType(layoutType)
+    }
+}
+
+enum class LayoutType {
+    GRID,
+    LINEAR,
+    STAGGERED_GRID
 }
