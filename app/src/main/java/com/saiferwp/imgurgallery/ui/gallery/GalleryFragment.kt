@@ -24,6 +24,18 @@ class GalleryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        viewModel = ViewModelProviders.of(this).get(GalleryViewModel::class.java)
+
+        viewModel.gallerySection = arguments?.getSerializable("gallerySection") as GallerySection
+
+        viewModel.galleryLiveData
+            .observe(this, Observer { list ->
+                adapter.setData(list)
+
+                adapter.showLoading(!viewModel.isLastPage)
+            })
+        viewModel.doRequest()
     }
 
     override fun onCreateView(
@@ -35,23 +47,8 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = view.findViewById(R.id.recyclerView_repos_list)
-
         recyclerView.adapter = adapter
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(GalleryViewModel::class.java)
-
         configureRecyclerView()
-
-        viewModel.gallerySection = arguments?.getSerializable("gallerySection") as GallerySection
-        viewModel.loadGallery()
-            .observe(this, Observer { list ->
-                adapter.addData(list)
-
-                adapter.showLoading(!viewModel.isLastPage)
-            })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -121,6 +118,5 @@ class GalleryFragment : Fragment() {
                 return viewModel.isLoading
             }
         })
-
     }
 }

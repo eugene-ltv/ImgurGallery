@@ -19,7 +19,7 @@ interface Api {
         @Path("page") currentPage: Int
     ): Deferred<Response<GalleryResponse>>
 
-    @GET("gallery/hot/{page}")
+    @GET("gallery/user/{page}")
     fun getGalleryUserSubmittedAsync(
         @Path("page") currentPage: Int,
         @Query("showViral") showViral: String = "true"

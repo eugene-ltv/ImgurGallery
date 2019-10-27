@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class GalleryViewModel : ViewModel() {
 
     lateinit var gallerySection: GallerySection
-    private val galleryLiveData = MutableLiveData<List<GalleryItem>>()
+    internal val galleryLiveData = MutableLiveData<List<GalleryItem>>(listOf())
 
     private var currentPage = 0
     internal var isLastPage = false
@@ -20,7 +20,7 @@ class GalleryViewModel : ViewModel() {
     private val galleryProvider = App.component.getGalleryProvider()
     private val preferencesManager = App.component.getPreferencesManager()
 
-    private fun doRequest() {
+    internal fun doRequest() {
         isLoading = true
         viewModelScope.launch {
 
@@ -31,14 +31,10 @@ class GalleryViewModel : ViewModel() {
                 }
 
                 isLoading = false
-                galleryLiveData.value = reposList.data
+                galleryLiveData.value =
+                    galleryLiveData.value?.plus(reposList.data)
             }
         }
-    }
-
-    fun loadGallery(): MutableLiveData<List<GalleryItem>> {
-        doRequest()
-        return galleryLiveData
     }
 
     fun loadMoreItems() {

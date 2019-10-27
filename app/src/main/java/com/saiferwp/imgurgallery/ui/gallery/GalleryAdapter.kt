@@ -15,15 +15,15 @@ import com.saiferwp.imgurgallery.api.model.GalleryItem
 
 class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items = mutableListOf<GalleryItem>()
+    private var items = listOf<GalleryItem>()
     private var isLoaderVisible = false
 
     fun getItemsSize() = items.size
 
-    fun addData(
+    fun setData(
         items: List<GalleryItem>
     ) {
-        this.items.addAll(items)
+        this.items = items
         notifyDataSetChanged()
     }
 
@@ -58,6 +58,10 @@ class GalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (!isLoaderVisible || (isLoaderVisible && position < items.size)) {
             (holder as RepoDataViewHolder).bind(items[position])
         }
+    }
+
+    fun clear() {
+        items = mutableListOf()
     }
 
     class RepoDataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
