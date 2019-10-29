@@ -28,9 +28,9 @@ class GalleryViewModel : ViewModel() {
         }
         viewModelScope.launch {
 
-            val reposList = galleryProvider.getGallery(gallerySection, currentPage)
-            if (reposList != null) {
-                if (reposList.isEmpty()) {
+            val gallery = galleryProvider.getGallery(gallerySection, currentPage)
+            if (gallery != null) {
+                if (gallery.isEmpty()) {
                     isLastPage = true
                 }
 
@@ -40,7 +40,7 @@ class GalleryViewModel : ViewModel() {
                 }
 
                 galleryLiveData.value =
-                    galleryLiveData.value?.plus(reposList)
+                    galleryLiveData.value?.plus(gallery)
             }
         }
     }

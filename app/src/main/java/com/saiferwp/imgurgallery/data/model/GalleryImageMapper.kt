@@ -32,6 +32,7 @@ object GalleryImageMapper {
         }
 
         return GalleryImage(
+            id = galleryItem.id,
             title = galleryItem.title,
             type = when(type){
             "video/mp4" -> GalleryImage.Type.MP4
