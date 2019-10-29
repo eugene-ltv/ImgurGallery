@@ -5,17 +5,17 @@
         android:id="@+id/grid_view"
         app:showAsAction="never"
         android:icon="@drawable/ic_info"
-        android:title="Grid view" />
+        android:title="@string/menu_item_grid_view" />
 
     <item
         android:id="@+id/linear_view"
         app:showAsAction="never"
         android:icon="@drawable/ic_info"
-        android:title="List view" />
+        android:title="@string/menu_item_list_view" />
 
     <item
         android:id="@+id/staggered_grid_view"
         app:showAsAction="never"
         android:icon="@drawable/ic_info"
-        android:title="Staggered view" />
+        android:title="@string/menu_item_staggered_view" />
 </menu>

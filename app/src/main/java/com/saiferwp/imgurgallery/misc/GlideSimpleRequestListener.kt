@@ -6,7 +6,8 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
-class GlideSimpleRequestListener(private val onLoadComplete: () -> Unit) : RequestListener<Drawable> {
+class GlideSimpleRequestListener(private val onLoadComplete: () -> Unit) :
+    RequestListener<Drawable> {
     override fun onLoadFailed(
         e: GlideException?,
         model: Any?,

@@ -14,7 +14,7 @@
         android:checked="true"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Include viral images"
+        android:text="@string/include_viral_images"
         android:textColor="@color/white" />
 
     <include layout="@layout/gallery_fragment" />

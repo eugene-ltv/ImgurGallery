@@ -34,9 +34,9 @@ object GalleryImageMapper {
         return GalleryImage(
             id = galleryItem.id,
             title = galleryItem.title,
-            type = when(type){
-            "video/mp4" -> GalleryImage.Type.MP4
-            "image/gif" -> GalleryImage.Type.GIF
+            type = when (type) {
+                "video/mp4" -> GalleryImage.Type.MP4
+                "image/gif" -> GalleryImage.Type.GIF
                 else -> GalleryImage.Type.IMAGE
             },
             link = link,

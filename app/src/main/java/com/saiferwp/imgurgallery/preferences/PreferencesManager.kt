@@ -5,7 +5,7 @@ import com.saiferwp.imgurgallery.Config
 import com.saiferwp.imgurgallery.ui.gallery.LayoutType
 
 class PreferencesManager(
-        private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences
 ) : IPreferencesManager {
 
     override fun getGalleryLayoutType(): LayoutType {

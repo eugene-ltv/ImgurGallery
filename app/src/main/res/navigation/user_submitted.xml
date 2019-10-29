@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/gallery_list_fragment_user"
         android:name="com.saiferwp.imgurgallery.ui.gallery.GalleryUserSubmittedFragment"
-        android:label="User Submitted"
+        android:label="@string/tab_user_submitted"
         tools:layout="@layout/gallery_user_submitted_fragment">
 
         <argument

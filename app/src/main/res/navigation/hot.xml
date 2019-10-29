@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/gallery_list_fragment_hot"
         android:name="com.saiferwp.imgurgallery.ui.gallery.GalleryFragment"
-        android:label="Hot"
+        android:label="@string/tab_hot"
         tools:layout="@layout/gallery_fragment">
 
         <argument

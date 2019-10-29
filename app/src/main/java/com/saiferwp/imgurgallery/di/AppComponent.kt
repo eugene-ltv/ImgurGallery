@@ -16,5 +16,5 @@ import javax.inject.Singleton
 )
 interface AppComponent {
     fun getGalleryProvider(): GalleryProvider
-    fun getPreferencesManager() : IPreferencesManager
+    fun getPreferencesManager(): IPreferencesManager
 }

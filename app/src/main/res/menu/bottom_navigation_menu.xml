@@ -3,13 +3,13 @@
     <item
         android:id="@+id/hot"
         android:icon="@drawable/ic_hot"
-        android:title="Hot" />
+        android:title="@string/tab_hot" />
     <item
         android:id="@+id/user"
         android:icon="@drawable/ic_person"
-        android:title="User submitted" />
+        android:title="@string/tab_user_submitted" />
     <item
         android:id="@+id/top"
         android:icon="@drawable/ic_top"
-        android:title="Top" />
+        android:title="@string/tab_top" />
 </menu>

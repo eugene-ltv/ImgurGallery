@@ -20,7 +20,11 @@ class AboutAppFragment : DialogFragment() {
         setStyle(STYLE_NO_FRAME, R.style.TranslucentDialogTheme)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.dilalog_about, container, false)
     }
 
@@ -31,15 +35,15 @@ class AboutAppFragment : DialogFragment() {
         }
 
         val version = view.findViewById<TextView>(R.id.app_version)
-        version.text = "Version: ${BuildConfig.VERSION_NAME}" +
-                " (${BuildConfig.VERSION_CODE})"
+        version.text =
+            getString(R.string.about_version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
 
         val buildTime = view.findViewById<TextView>(R.id.build_time)
         val buildDate = Date(BuildConfig.TIMESTAMP)
-        var formatter = SimpleDateFormat("yyyy-MM-dd-HH:mm", Locale.getDefault())
-        buildTime.text = "Build time: ${formatter.format(buildDate)}"
+        val formatter = SimpleDateFormat("yyyy-MM-dd-HH:mm", Locale.getDefault())
+        buildTime.text = getString(R.string.about_build_time, formatter.format(buildDate))
 
         val author = view.findViewById<TextView>(R.id.author)
-        author.text = "Author: Eugene Litvintsev\n(github.com/eugene-ltv)"
+        author.setText(R.string.about_author)
     }
 }

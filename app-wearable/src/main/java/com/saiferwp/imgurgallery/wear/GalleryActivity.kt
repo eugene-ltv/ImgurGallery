@@ -85,10 +85,11 @@ class GalleryActivity : WearableActivity(),
     private fun sendRequestGalleryMessage(node: String) {
         Wearable.getMessageClient(this).sendMessage(
             node,
-            WearConstants.PATH_GALLERY_HOT+"$currentPage",
+            WearConstants.PATH_GALLERY_HOT + "$currentPage",
             ByteArray(0)
         )
     }
+
     fun loadNextPage() {
         currentPage++
         doGalleryRequest()
@@ -113,7 +114,8 @@ class GalleryActivity : WearableActivity(),
             for (node in nodes) {
                 results.add(node.id)
             }
-        } catch (ignore: Exception) {}
+        } catch (ignore: Exception) {
+        }
         return results
     }
 

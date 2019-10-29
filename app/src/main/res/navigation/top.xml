@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/gallery_list_fragment_top"
         android:name="com.saiferwp.imgurgallery.ui.gallery.GalleryFragment"
-        android:label="Top"
+        android:label="@string/tab_top"
         tools:layout="@layout/gallery_fragment">
 
         <argument

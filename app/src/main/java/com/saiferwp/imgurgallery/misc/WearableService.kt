@@ -23,14 +23,17 @@ class WearableService : WearableListenerService() {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO + Job())
 
+    @Override
     override fun onMessageReceived(messageEvent: MessageEvent) {
         if (messageEvent.path.startsWith(WearConstants.PATH_GALLERY_HOT)) {
-            doGalleryRequest(messageEvent.path
-                .removePrefix(WearConstants.PATH_GALLERY_HOT).toInt()
+            doGalleryRequest(
+                messageEvent.path
+                    .removePrefix(WearConstants.PATH_GALLERY_HOT).toInt()
             )
         }
     }
 
+    @Override
     override fun onDataChanged(dataEvents: DataEventBuffer) {
         for (event in dataEvents) {
             if (event.type == DataEvent.TYPE_CHANGED) {
@@ -79,10 +82,12 @@ class WearableService : WearableListenerService() {
         } finally {
             try {
                 out?.close()
-            } catch (ignore: IOException) {}
+            } catch (ignore: IOException) {
+            }
             try {
                 bos.close()
-            } catch (ignore: IOException) {}
+            } catch (ignore: IOException) {
+            }
         }
     }
 
