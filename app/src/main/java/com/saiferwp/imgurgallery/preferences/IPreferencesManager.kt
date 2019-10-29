@@ -8,4 +8,6 @@ interface IPreferencesManager {
     fun getGalleryLayoutType(): LayoutType
     fun setGalleryLayoutType(galleryLayoutType: LayoutType)
 
+    fun getUserSubmittedShowViral(): Boolean
+    fun setUserSubmittedShowViral(showViral: Boolean)
 }

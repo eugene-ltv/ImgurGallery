@@ -63,7 +63,7 @@ class MainFragment : Fragment() {
     private fun setupBottomNavigationBar() {
         val bottomNavigationView = view?.findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-        val navGraphIds = listOf(R.navigation.hot, R.navigation.user, R.navigation.top)
+        val navGraphIds = listOf(R.navigation.hot, R.navigation.user_submitted, R.navigation.top)
 
         // Setup the bottom navigation view with a list of navigation graphs
         val controller = bottomNavigationView?.setupWithNavController(

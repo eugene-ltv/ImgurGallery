@@ -14,14 +14,14 @@ import com.saiferwp.imgurgallery.R
 import com.saiferwp.imgurgallery.data.model.GallerySection
 import com.saiferwp.imgurgallery.misc.PaginationListener
 
-class GalleryFragment : Fragment() {
+open class GalleryFragment : Fragment() {
 
     private lateinit var progress: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private val adapter: GalleryAdapter =
         GalleryAdapter()
 
-    private lateinit var viewModel: GalleryViewModel
+    lateinit var viewModel: GalleryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

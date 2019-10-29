@@ -7,10 +7,12 @@ import com.saiferwp.imgurgallery.api.request.GalleryUserSubmittedRequest
 import com.saiferwp.imgurgallery.data.model.GalleryImage
 import com.saiferwp.imgurgallery.data.model.GalleryImageMapper
 import com.saiferwp.imgurgallery.data.model.GallerySection
+import com.saiferwp.imgurgallery.preferences.IPreferencesManager
 import java.net.UnknownHostException
 
 class GalleryProvider(
-    private val apiClient: ApiClient
+    private val apiClient: ApiClient,
+    private val preferencesManager: IPreferencesManager
 ) {
 
     suspend fun getGallery(
@@ -20,7 +22,12 @@ class GalleryProvider(
         try {
             val request = when (gallerySection) {
                 GallerySection.HOT -> GalleryHotRequest(currentPage)
-                GallerySection.USER_SUBMITTED -> GalleryUserSubmittedRequest(currentPage)
+                GallerySection.USER_SUBMITTED -> {
+                    GalleryUserSubmittedRequest(
+                        preferencesManager.getUserSubmittedShowViral(),
+                        currentPage
+                    )
+                }
                 GallerySection.TOP -> GalleryTopRequest(currentPage)
             }
 

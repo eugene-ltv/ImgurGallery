@@ -27,7 +27,6 @@ class GalleryViewModel : ViewModel() {
             initialLoadingLiveData.value = true
         }
         viewModelScope.launch {
-
             val gallery = galleryProvider.getGallery(gallerySection, currentPage)
             if (gallery != null) {
                 if (gallery.isEmpty()) {
@@ -56,6 +55,14 @@ class GalleryViewModel : ViewModel() {
 
     fun setLayoutType(layoutType: LayoutType) {
         preferencesManager.setGalleryLayoutType(layoutType)
+    }
+
+    fun reload() {
+        currentPage = 0
+        isLoading = false
+        isLastPage = false
+        galleryLiveData.value = emptyList()
+        doRequest()
     }
 }
 

@@ -5,8 +5,14 @@ import com.saiferwp.imgurgallery.api.response.GalleryResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 
-class GalleryUserSubmittedRequest(private val currentPage: Int) : Request<GalleryResponse>() {
+class GalleryUserSubmittedRequest(
+    private val showViral: Boolean,
+    private val currentPage: Int
+) : Request<GalleryResponse>() {
     override fun executeAsync(api: Api): Deferred<Response<GalleryResponse>> {
-        return api.getGalleryUserSubmittedAsync(currentPage)
+        return api.getGalleryUserSubmittedAsync(
+            showViral = showViral,
+            currentPage = currentPage
+        )
     }
 }

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/gallery_list_fragment_user"
-        android:name="com.saiferwp.imgurgallery.ui.gallery.GalleryFragment"
+        android:name="com.saiferwp.imgurgallery.ui.gallery.GalleryUserSubmittedFragment"
         android:label="User Submitted"
-        tools:layout="@layout/gallery_fragment">
+        tools:layout="@layout/gallery_user_submitted_fragment">
 
         <argument
             android:name="gallerySection"
