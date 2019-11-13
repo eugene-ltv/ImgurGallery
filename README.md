@@ -19,7 +19,7 @@ To build and run this project you must obtain personal ``client_id``  for access
 
 Define your Client ID in ``app/build.gradle``
 ```
-def imgurApiKey = "<YOUR_CLIENT_ID>"
+def imgurApiKey = '"<YOUR_CLIENT_ID>"'
 ```
 
 ## Built With
